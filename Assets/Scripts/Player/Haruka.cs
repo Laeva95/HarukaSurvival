@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class Haruka : MonoBehaviour
 {
-    [SerializeField] Transform m_Gun;                           // 플레이어 무기 오브젝트
-    [SerializeField] Transform m_GunRightMuzzle;                // 플레이어 무기 오브젝트 우측 총구
-    [SerializeField] Transform m_GunLeftMuzzle;                 // 플레이어 무기 오브젝트 좌측 총구
+
+    [SerializeField] Transform m_Gun, m_GunRightMuzzle, m_GunLeftMuzzle;                           // 플레이어 무기 오브젝트
     [SerializeField] LevelUpUI m_LevelUpUI;                     // 레벨 업 UI
     [SerializeField] GameObject m_Shield;                       // 플레이어 실드 오브젝트
     [SerializeField] GunManager m_GunManager;                   // 플레이어 무기 정보 매니저
@@ -84,7 +84,7 @@ public class Haruka : MonoBehaviour
     private void Update()
     {
         // 플레이어 이동 방향 설정
-        SetPlayerMoveDirection();
+        //SetPlayerMoveDirection();
 
         // 타임 스케일이 0 일때는 작동하지 않음
         if (Time.timeScale == 0)
@@ -105,14 +105,21 @@ public class Haruka : MonoBehaviour
     }
 
     // 플레이어 방향 설정
-    private void SetPlayerMoveDirection()
-    {
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+    //private void SetPlayerMoveDirection()
+    //{
+    //    float h = Input.GetAxisRaw("Horizontal");
+    //    float v = Input.GetAxisRaw("Vertical");
 
+    //    if (!m_IsSlide && !GameManager.Instance.IsMobile)
+    //    {
+    //        m_DirVec = new Vector3(h, v, 0).normalized;
+    //    }
+    //}
+    private void OnMove(InputValue _value)
+    {
         if (!m_IsSlide && !GameManager.Instance.IsMobile)
         {
-            m_DirVec = new Vector3(h, v, 0).normalized;
+            m_DirVec = _value.Get<Vector2>();
         }
     }
     // 조이스틱을 통한 플레이어 방향 설정
