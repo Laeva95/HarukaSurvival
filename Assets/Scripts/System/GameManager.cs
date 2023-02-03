@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -97,7 +98,6 @@ public class GameManager : MonoBehaviour
         m_StatusRect = m_StatusPanel.GetComponent<RectTransform>();
 
         m_IsMobile = Application.isMobilePlatform;
-        //StartCoroutine(SetResoutionCoroutine());
     }
 
     private void Start()
@@ -109,7 +109,6 @@ public class GameManager : MonoBehaviour
     {
         CalPlayTime();
 
-        Pause();
         if (!IsPlay && Input.GetMouseButtonDown(0))
         {
             GameRestart();
@@ -229,14 +228,9 @@ public class GameManager : MonoBehaviour
         // 게임이 더 진행되지 않도록 IsPlay = false
         m_IsPlay = false;
     }
-
-    private void Pause()
+    void OnCancel()
     {
-        // 게임이 플레이 중일때, esc를 누를 경우
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            OnPause();
-        }
+        OnPause();
     }
 
     // 버튼으로도 호출 가능하도록 public으로 작성
@@ -366,33 +360,5 @@ public class GameManager : MonoBehaviour
             default:
                 break;
         }
-    }
-
-    void SetResolution()
-    {
-        int setWidth = 1600; // 사용자 설정 너비
-        int setHeight = 900; // 사용자 설정 높이
-
-        int deviceWidth = Screen.width; // 기기 너비 저장
-        int deviceHeight = Screen.height; // 기기 높이 저장
-
-        Screen.SetResolution(setWidth, (int)(((float)deviceHeight / deviceWidth) * setWidth), false); // SetResolution 함수 제대로 사용하기
-
-        if ((float)setWidth / setHeight < (float)deviceWidth / deviceHeight) // 기기의 해상도 비가 더 큰 경우
-        {
-            float newWidth = ((float)setWidth / setHeight) / ((float)deviceWidth / deviceHeight); // 새로운 너비
-            Camera.main.rect = new Rect((1f - newWidth) / 2f, 0f, newWidth, 1f); // 새로운 Rect 적용
-        }
-        else // 게임의 해상도 비가 더 큰 경우
-        {
-            float newHeight = ((float)deviceWidth / deviceHeight) / ((float)setWidth / setHeight); // 새로운 높이
-            Camera.main.rect = new Rect(0f, (1f - newHeight) / 2f, 1f, newHeight); // 새로운 Rect 적용
-        }
-    }
-
-    IEnumerator SetResoutionCoroutine()
-    {
-        yield return new WaitForSeconds(0.5f);
-        SetResolution();
     }
 }

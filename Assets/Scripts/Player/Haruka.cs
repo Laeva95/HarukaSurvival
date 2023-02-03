@@ -57,6 +57,8 @@ public class Haruka : MonoBehaviour
     [SerializeField]
     private GameObject m_PlayerHeal;                            // 체력 회복 텍스트 오브젝트
 
+    WaitForSeconds m_CheckSec;
+
     private void Awake()
     {
         // 컴포넌트 초기화
@@ -72,6 +74,7 @@ public class Haruka : MonoBehaviour
         m_PlayerLevel = 1;
         m_MoveLevel = 0;
         m_ShieldLevel = 0;
+        m_CheckSec = new WaitForSeconds(0.05f);
 
         // 슬라이더 UI 초기화
         SetHpBar();
@@ -83,9 +86,6 @@ public class Haruka : MonoBehaviour
 
     private void Update()
     {
-        // 플레이어 이동 방향 설정
-        //SetPlayerMoveDirection();
-
         // 타임 스케일이 0 일때는 작동하지 않음
         if (Time.timeScale == 0)
         {
@@ -99,22 +99,12 @@ public class Haruka : MonoBehaviour
 
         // 마우스 좌표에 따라 조준점 이동
         TakeAim();
-            
-        // 조준점을 향해 발사
-        PlayerAttack();
+
+        // 모바일환경에서 공격
+        PlayerAttackMobile();
     }
 
     // 플레이어 방향 설정
-    //private void SetPlayerMoveDirection()
-    //{
-    //    float h = Input.GetAxisRaw("Horizontal");
-    //    float v = Input.GetAxisRaw("Vertical");
-
-    //    if (!m_IsSlide && !GameManager.Instance.IsMobile)
-    //    {
-    //        m_DirVec = new Vector3(h, v, 0).normalized;
-    //    }
-    //}
     private void OnMove(InputValue _value)
     {
         if (!m_IsSlide && !GameManager.Instance.IsMobile)
@@ -258,21 +248,38 @@ public class Haruka : MonoBehaviour
             }
         }
     }
-    private void PlayerAttack()
+    void OnFire(InputValue _value)
+    {
+        if (_value.isPressed)
+        {
+            StartCoroutine(GetMousePressed());
+        }
+        else
+        {
+            StopCoroutine(GetMousePressed());
+        }
+
+    }
+    IEnumerator GetMousePressed()
+    {
+        while (true)
+        {
+            if (!GameManager.Instance.IsMobile)
+            {
+                // 조건을 만족하면 마우스 왼쪽클릭으로 실행
+                if (Input.GetMouseButton(0) && !m_IsSlide && !m_IsFire
+                 && !m_IsLevelUp && !EventSystem.current.IsPointerOverGameObject())
+                {
+                    StartCoroutine(PlayerGunFireCoroutine());
+                }
+            }
+            yield return m_CheckSec;
+        }
+    }
+    private void PlayerAttackMobile()
     {
         // 모바일인지 확인
-        // 모바일이 아닐 경우
-        if (!GameManager.Instance.IsMobile)
-        {
-            // 조건을 만족하면 마우스 왼쪽클릭으로 실행
-            if (Input.GetMouseButton(0) && !m_IsSlide && !m_IsFire 
-             && !m_IsLevelUp && !EventSystem.current.IsPointerOverGameObject())
-            {
-                StartCoroutine(PlayerGunFireCoroutine());
-            }
-        }
-        // 모바일인 경우
-        else
+        if (GameManager.Instance.IsMobile)
         {
             if (CanFire())
             {
@@ -370,6 +377,7 @@ public class Haruka : MonoBehaviour
         if (m_PlayerHP <= 0)
         {
             GameManager.Instance.GameOver();
+            StopAllCoroutines();
         }
 
         // 피격 시 색상 변경
