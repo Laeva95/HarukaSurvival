@@ -11,6 +11,8 @@ TagManager:
   - Mutsuki
   - Kayoko
   - Aru
+  - Ground
+  - Area
   layers:
   - Default
   - TransparentFX

@@ -313,24 +313,6 @@ public class MonsterSpawnManager : MonoBehaviour
             // 플레이어 위치에서 일정 거리 떨어진 위치에 몬스터 생성
             GameObject obj = ObjectPoolingManager.Instance.GetQueue(_monsterNum);
             obj.transform.position = m_Player.position + dir * 12;
-
-            // 최대 스폰 범위 설정
-            if(obj.transform.position.x > 2250)
-            {
-                obj.transform.position = new Vector2(2245, obj.transform.position.y);
-            }
-            if (obj.transform.position.x < -2250)
-            {
-                obj.transform.position = new Vector2(-2245, obj.transform.position.y);
-            }
-            if (obj.transform.position.y > 2250)
-            {
-                obj.transform.position = new Vector2(obj.transform.position.x, 2245);
-            }
-            if (obj.transform.position.y < -2250)
-            {
-                obj.transform.position = new Vector2(obj.transform.position.x, -2245);
-            }
         }
     }
 }
