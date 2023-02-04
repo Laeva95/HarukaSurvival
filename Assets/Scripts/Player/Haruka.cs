@@ -94,9 +94,6 @@ public class Haruka : MonoBehaviour
         // 방향에 따라 플레이어 이동
         PlayerMove();
 
-        // 플레이어 구르기
-        PlayerSlide();
-
         // 마우스 좌표에 따라 조준점 이동
         TakeAim();
 
@@ -130,11 +127,10 @@ public class Haruka : MonoBehaviour
         else
             m_Ani.SetBool("isWalk", false);
     }
-
-    private void PlayerSlide()
+    private void OnEscape()
     {
         // 이동중인 상태일때, 슬라이드가 쿨다운 상태가 아니라면 스페이스를 눌러 실행
-        if(Input.GetKeyDown(KeyCode.Space) && !m_IsSlideCool && m_DirVec != Vector3.zero && !m_IsLevelUp 
+        if (!m_IsSlideCool && m_DirVec != Vector3.zero && !m_IsLevelUp
             && !GameManager.Instance.IsMobile && Time.timeScale != 0)
         {
             StartCoroutine(SlideCoroutine());
@@ -252,11 +248,13 @@ public class Haruka : MonoBehaviour
     {
         if (_value.isPressed)
         {
-            StartCoroutine(GetMousePressed());
+            Debug.Log("공격 시작!");
+            StartCoroutine("GetMousePressed");
         }
         else
         {
-            StopCoroutine(GetMousePressed());
+            Debug.Log("공격 중지!");
+            StopCoroutine("GetMousePressed");
         }
 
     }
@@ -267,8 +265,7 @@ public class Haruka : MonoBehaviour
             if (!GameManager.Instance.IsMobile)
             {
                 // 조건을 만족하면 마우스 왼쪽클릭으로 실행
-                if (Input.GetMouseButton(0) && !m_IsSlide && !m_IsFire
-                 && !m_IsLevelUp && !EventSystem.current.IsPointerOverGameObject())
+                if (!m_IsSlide && !m_IsFire && !m_IsLevelUp && !EventSystem.current.IsPointerOverGameObject())
                 {
                     StartCoroutine(PlayerGunFireCoroutine());
                 }
