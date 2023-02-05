@@ -12,6 +12,8 @@ public abstract class Monster : MonoBehaviour
     protected int m_MonsterMaxHP;                 // 몬스터 최대 체력
     protected int m_MonsterHP;                    // 몬스터 체력
     protected int m_MonsterDamage;                // 몬스터 공격력
+    protected int m_MonsterExp;                   // 몬스터 경험치
+    protected int m_MonsterSpawnNum;              // 몬스터 스폰 번호
     protected float m_MoveSpeed;                  // 몬스터 이동 속도
     protected float m_AttackDelay;                // 몬스터 공격 간격
     protected bool m_IsAttack;                    // 몬스터 공격 중복 방지 변수
@@ -113,7 +115,30 @@ public abstract class Monster : MonoBehaviour
         // 공격 상태를 false로 되돌림
         m_IsAttack = false;
     }
-    public abstract void MonsterOnDamage(int _damage);
+    // 몬스터 피격
+    public virtual void MonsterOnDamage(int _damage)
+    {
+        m_MonsterHP -= _damage;
+
+        StartCoroutine(MonsterOnDamageEffect());
+
+        if (m_MonsterHP <= 0)
+        {
+            MonsterDead();
+        }
+    }
+
+    protected void MonsterDead()
+    {
+        DespawnEffect((int)m_MonsterNum);
+
+        SoundManager.Instance.SoundPlay(SOUND_NAME.MONSTERDEAD0);
+
+        DropExpItem(m_MonsterExp);
+
+        // 몬스터 오브젝트를 오브젝트 풀 매니저의 큐에 다시 넣어줌
+        ObjectPoolingManager.Instance.InsertQueue(gameObject, m_MonsterSpawnNum);
+    }
 
     // 몬스터 피격 이펙트 코루틴
     protected IEnumerator MonsterOnDamageEffect()
@@ -171,5 +196,34 @@ public abstract class Monster : MonoBehaviour
     protected bool IsDead()
     {
         return m_MonsterHP <= 0;
+    }
+
+    protected void DropExpItem(int _exp)
+    {
+        if (_exp <= 0)
+            return;
+
+        GameObject exp;
+        if (_exp < 10)
+        {
+            exp = ObjectPoolingManager.Instance.GetQueue(ObjectPoolingManager.m_ExpItem0Key);
+        }
+        else if (_exp < 50)
+        {
+            exp = ObjectPoolingManager.Instance.GetQueue(ObjectPoolingManager.m_ExpItem1Key);
+        }
+        else if (_exp < 100)
+        {
+            exp = ObjectPoolingManager.Instance.GetQueue(ObjectPoolingManager.m_ExpItem2Key);
+        }
+        else
+        {
+            exp = ObjectPoolingManager.Instance.GetQueue(ObjectPoolingManager.m_ExpItem3Key);
+        }
+
+        exp.transform.position = gameObject.transform.position;
+
+        Item item = exp.GetComponent<Item>();
+        item.SetExp(m_MonsterExp);
     }
 }

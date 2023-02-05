@@ -15,6 +15,8 @@ public class Monster07 : Monster
         m_AttackDelay = 1.3f;
         m_IsFire = false;
         m_MonsterNum = MONSTER_NUMBER.MONSTER07;
+        m_MonsterExp = 50;
+        m_MonsterSpawnNum = ObjectPoolingManager.m_Monster07Key;
 
         SetHpBar();
 
@@ -115,27 +117,10 @@ public class Monster07 : Monster
 
         base.MonsterAttack(_obj);
     }
-
-    // 몬스터 피격
     public override void MonsterOnDamage(int _damage)
     {
-        m_MonsterHP -= _damage;
+        base.MonsterOnDamage(_damage);
         SetHpBar();
-
-        StartCoroutine(MonsterOnDamageEffect());
-
-        if (m_MonsterHP <= 0)
-        {
-            DespawnEffect((int)m_MonsterNum);
-
-            SoundManager.Instance.SoundPlay(SOUND_NAME.MONSTERDEAD0);
-
-            Haruka player = m_PlayerTransform.gameObject.GetComponent<Haruka>();
-            player.SetExpUp(50);
-
-            // 몬스터 오브젝트를 오브젝트 풀 매니저의 큐에 다시 넣어줌
-            ObjectPoolingManager.Instance.InsertQueue(gameObject, ObjectPoolingManager.m_Monster07Key);
-        }
     }
 
     void SetHpBar()

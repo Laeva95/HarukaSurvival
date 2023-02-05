@@ -15,6 +15,8 @@ public class Boss03 : Monster
         m_AttackDelay = 1f;
         m_IsFire = false;
         m_MonsterNum = MONSTER_NUMBER.BOSS03;
+        m_MonsterExp = 0;
+        m_MonsterSpawnNum = ObjectPoolingManager.m_Boss03Key;
 
         SetHpBar();
 
@@ -341,7 +343,7 @@ public class Boss03 : Monster
             Haruka player = m_PlayerTransform.gameObject.GetComponent<Haruka>();
 
             // 몬스터 오브젝트를 오브젝트 풀 매니저의 큐에 다시 넣어줌
-            ObjectPoolingManager.Instance.InsertQueue(gameObject, ObjectPoolingManager.m_Boss03Key);
+            ObjectPoolingManager.Instance.InsertQueue(gameObject, m_MonsterSpawnNum);
 
             // GameManager.Instance.BossClear();
             GameManager.Instance.GameClear();

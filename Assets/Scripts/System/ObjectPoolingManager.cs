@@ -17,6 +17,15 @@ public class ObjectPoolingManager : MonoBehaviour
     private GameObject m_MonsterBullet2Prefab;
 
     [SerializeField]
+    private GameObject m_ExpItem0;
+    [SerializeField]
+    private GameObject m_ExpItem1;
+    [SerializeField]
+    private GameObject m_ExpItem2;
+    [SerializeField]
+    private GameObject m_ExpItem3;
+
+    [SerializeField]
     private GameObject m_Monster00Prefab;
     [SerializeField]
     private GameObject m_Monster01Prefab;
@@ -67,6 +76,11 @@ public class ObjectPoolingManager : MonoBehaviour
     private Queue<GameObject> m_MonsterBulletQueue = new Queue<GameObject>();
     private Queue<GameObject> m_MonsterBullet2Queue = new Queue<GameObject>();
 
+    private Queue<GameObject> m_ExpItem0Queue = new Queue<GameObject>();
+    private Queue<GameObject> m_ExpItem1Queue = new Queue<GameObject>();
+    private Queue<GameObject> m_ExpItem2Queue = new Queue<GameObject>();
+    private Queue<GameObject> m_ExpItem3Queue = new Queue<GameObject>();
+
     private Queue<GameObject> m_Monster00Queue = new Queue<GameObject>();
     private Queue<GameObject> m_Monster01Queue = new Queue<GameObject>();
     private Queue<GameObject> m_Monster02Queue = new Queue<GameObject>();
@@ -97,6 +111,11 @@ public class ObjectPoolingManager : MonoBehaviour
     public const int m_PlayerBullet3Key = 102;
     public const int m_MonsterBulletKey = 110;
     public const int m_MonsterBullet2Key = 111;
+
+    public const int m_ExpItem0Key = 500;
+    public const int m_ExpItem1Key = 501;
+    public const int m_ExpItem2Key = 502;
+    public const int m_ExpItem3Key = 503;
 
     public const int m_Monster00Key = 1000;
     public const int m_Monster01Key = 1001;
@@ -162,6 +181,11 @@ public class ObjectPoolingManager : MonoBehaviour
         m_queueDic.Add(m_MonsterBulletKey, m_MonsterBulletQueue);
         m_queueDic.Add(m_MonsterBullet2Key, m_MonsterBullet2Queue);
 
+        m_queueDic.Add(m_ExpItem0Key, m_ExpItem0Queue);
+        m_queueDic.Add(m_ExpItem1Key, m_ExpItem1Queue);
+        m_queueDic.Add(m_ExpItem2Key, m_ExpItem2Queue);
+        m_queueDic.Add(m_ExpItem3Key, m_ExpItem3Queue);
+
         m_queueDic.Add(m_Monster00Key, m_Monster00Queue);
         m_queueDic.Add(m_Monster01Key, m_Monster01Queue);
         m_queueDic.Add(m_Monster02Key, m_Monster02Queue);
@@ -191,6 +215,11 @@ public class ObjectPoolingManager : MonoBehaviour
         InitQueue(m_PlayerBullet3Prefab, m_PlayerBullet3Queue, 30);
         InitQueue(m_MonsterBulletPrefab, m_MonsterBulletQueue, 150);
         InitQueue(m_MonsterBullet2Prefab, m_MonsterBullet2Queue, 10);
+
+        InitQueue(m_ExpItem0, m_ExpItem0Queue, 50);
+        InitQueue(m_ExpItem1, m_ExpItem1Queue, 50);
+        InitQueue(m_ExpItem2, m_ExpItem2Queue, 50);
+        InitQueue(m_ExpItem3, m_ExpItem3Queue, 50);
 
         InitQueue(m_Monster00Prefab, m_Monster00Queue, 30);
         InitQueue(m_Monster01Prefab, m_Monster01Queue, 30);

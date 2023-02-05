@@ -12,6 +12,8 @@ public class Monster09 : Monster
         m_MoveSpeed = 3.3f;
         m_AttackDelay = 0.1f;
         m_MonsterNum = MONSTER_NUMBER.MONSTER09;
+        m_MonsterExp = 100;
+        m_MonsterSpawnNum = ObjectPoolingManager.m_Monster09Key;
 
         base.OnEnable();
 
@@ -71,26 +73,6 @@ public class Monster09 : Monster
         ObjectPoolingManager.Instance.InsertQueue(gameObject, ObjectPoolingManager.m_Monster08Key);
     }
 
-    // 몬스터 피격
-    public override void MonsterOnDamage(int _damage)
-    {
-        m_MonsterHP -= _damage;
-
-        StartCoroutine(MonsterOnDamageEffect());
-
-        if (m_MonsterHP <= 0)
-        {
-            DespawnEffect((int)m_MonsterNum);
-
-            SoundManager.Instance.SoundPlay(SOUND_NAME.MONSTERDEAD0);
-
-            Haruka player = m_PlayerTransform.gameObject.GetComponent<Haruka>();
-            player.SetExpUp(100);
-
-            // 몬스터 오브젝트를 오브젝트 풀 매니저의 큐에 다시 넣어줌
-            ObjectPoolingManager.Instance.InsertQueue(gameObject, ObjectPoolingManager.m_Monster09Key);
-        }
-    }
 
     protected void BoomEffect()
     {

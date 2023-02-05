@@ -26,6 +26,7 @@ public class Haruka : MonoBehaviour
     int m_PlayerLevel;                                          // 플레이어 레벨
     int m_MoveLevel;                                            // 플레이어 이동 레벨
     int m_ShieldLevel;                                          // 플레이어 보호막 레벨
+    bool m_IsPressed;
 
     // 캡슐화를 위한 get 프로퍼티
     public int MoveLevel => m_MoveLevel;
@@ -104,6 +105,7 @@ public class Haruka : MonoBehaviour
     // 플레이어 방향 설정
     private void OnMove(InputValue _value)
     {
+        m_IsPressed = _value.Get<Vector2>() != Vector2.zero;
         if (!m_IsSlide && !GameManager.Instance.IsMobile)
         {
             m_DirVec = _value.Get<Vector2>();
@@ -182,6 +184,7 @@ public class Haruka : MonoBehaviour
         // 다른 액션 방지 false, 총 오브젝트 활성화
         yield return new WaitForSeconds(0.1f);
         m_IsSlide = false;
+        m_DirVec = m_IsPressed ? m_DirVec : Vector3.zero;
         m_Gun.gameObject.SetActive(true);
 
         // 슬라이드 중복 실행 방지 false

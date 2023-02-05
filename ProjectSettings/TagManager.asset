@@ -13,6 +13,7 @@ TagManager:
   - Aru
   - Ground
   - Area
+  - Item
   layers:
   - Default
   - TransparentFX

@@ -37,16 +37,16 @@ public class BackGround : MonoBehaviour
             case "Ground":
                if (diffX > diffY)
                 {
-                    transform.Translate(Vector3.right * dirX * 50);
+                    transform.Translate(Vector3.right * dirX * 100);
                 }
                 else if (diffX < diffY)
                 {
-                    transform.Translate(Vector3.up * dirY * 50);
+                    transform.Translate(Vector3.up * dirY * 100);
                 }
                 else
                 {
-                    transform.Translate(Vector3.up * dirY * 50);
-                    transform.Translate(Vector3.right * dirX * 50);
+                    transform.Translate(Vector3.up * dirY * 100);
+                    transform.Translate(Vector3.right * dirX * 100);
                 }
                 break;
             case "Monster":
