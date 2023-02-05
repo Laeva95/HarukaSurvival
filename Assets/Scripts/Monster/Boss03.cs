@@ -9,7 +9,7 @@ public class Boss03 : Monster
     // 스폰 되었을 때 변수 초기화
     protected override void OnEnable()
     {
-        m_MonsterMaxHP = 405000;
+        m_MonsterMaxHP = 305000;
         m_MonsterDamage = 30;
         m_MoveSpeed = 5f;
         m_AttackDelay = 1f;

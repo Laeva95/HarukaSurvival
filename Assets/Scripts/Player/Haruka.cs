@@ -13,6 +13,7 @@ public class Haruka : MonoBehaviour
     [SerializeField] GameObject m_Shield;                       // 플레이어 실드 오브젝트
     [SerializeField] GunManager m_GunManager;                   // 플레이어 무기 정보 매니저
     [SerializeField] Animator m_GunAni;                         // 플레이어 무기 애니메이터
+    [SerializeField] Transform m_ItemCheck;                     // 아이템 확인 범위
 
     Animator m_Ani;                                             // 플레이어 애니메이터
     SpriteRenderer m_SpRen;                                     // 플레이어 스프라이트 렌더러
@@ -37,6 +38,7 @@ public class Haruka : MonoBehaviour
     public GunManager GunManager => m_GunManager;
     public bool IsLevelUp => m_IsLevelUp;
     public Transform TargetTF => m_TargetTF;
+    public Transform ItemCheck => m_ItemCheck;
 
     bool m_IsSlide;                                             // 슬라이드 도중 다른 액션 방지
     bool m_IsSlideCool;                                         // 슬라이드 연속 사용 방지
@@ -53,6 +55,8 @@ public class Haruka : MonoBehaviour
     private SpriteRenderer m_PlayerHpSpRen;                     // 체력바를 대신 할 헤일로 스프라이트 렌더러
     [SerializeField]
     private Slider m_PlayerExpBarSlider;                        // 경험치 바 슬라이더
+    [SerializeField]
+    private Slider m_PlayerHPBarSlider;                        // 경험치 바 슬라이더
     [SerializeField]
     private Text m_PlayerHealText;                              // 체력 회복량 텍스트
     [SerializeField]
@@ -106,7 +110,8 @@ public class Haruka : MonoBehaviour
     private void OnMove(InputValue _value)
     {
         m_IsPressed = _value.Get<Vector2>() != Vector2.zero;
-        if (!m_IsSlide && !GameManager.Instance.IsMobile)
+
+        if (!GameManager.Instance.IsMobile)
         {
             m_DirVec = _value.Get<Vector2>();
         }
@@ -483,6 +488,9 @@ public class Haruka : MonoBehaviour
     {
         // 체력이 0보다 크거나 같다면 m_playerHp를, 0보다 작거나 같다면 1을 넣어줌
         m_PlayerHpSpRen.color = m_PlayerHP > 0 ? new Color(1, 1, 1, (float)m_PlayerHP / (float)m_PlayerMaxHP) : new Color(1, 1, 1, 1);
+        // 경험치 바 UI 값 설정
+        m_PlayerHPBarSlider.maxValue = m_PlayerMaxHP;
+        m_PlayerHPBarSlider.value = m_PlayerHP;
     }
 
     // 힐 텍스트 설정
@@ -565,5 +573,10 @@ public class Haruka : MonoBehaviour
     public void SetTargetTF(Transform _tf)
     {
         m_TargetTF = _tf;
+    }
+
+    public void SetItemCheck(float _multi)
+    {
+        m_ItemCheck.localScale *= _multi;
     }
 }

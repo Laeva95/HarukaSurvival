@@ -293,14 +293,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Cancel",
-                    "type": "Button",
-                    "id": "65429df7-9b06-4042-8529-de9b11e931dc",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Point",
                     "type": "PassThrough",
                     "id": "9bb35a33-a675-4b64-8bbb-732652fdc30f",
@@ -630,17 +622,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Submit",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "82627dcc-3b13-4ba9-841d-e4b746d6553e",
-                    "path": "*/{Cancel}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -17,9 +17,34 @@ public class Mine : MonoBehaviour
     {
         m_IsBoom = _bool;
     }
+    private void OnEnable()
+    {
+        m_IsBoom = false;
+        StartCoroutine("LifeTimeCoroutine");
+    }
+    private void OnDisable()
+    {
+        StopCoroutine("LifeTimeCoroutine");
+    }
+    IEnumerator LifeTimeCoroutine()
+    {
+        yield return new WaitForSeconds(1.5f);
 
+        SetBoom(true);
+
+        yield return new WaitForSeconds(10f);
+
+        if (gameObject.activeSelf)
+        {
+            Explosion();
+        }
+    }
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (!m_IsBoom)
+        {
+            return;
+        }
         if (collision.gameObject.tag == "Monster" && gameObject.activeSelf && collision.gameObject.activeSelf)
         {
             Explosion();
@@ -27,10 +52,6 @@ public class Mine : MonoBehaviour
     }
     public void Explosion()
     {
-        if (!m_IsBoom)
-        {
-            return;
-        }
         // 플레이어 근처의 모든 몬스터 콜라이더 확인
         Collider2D[] cols = Physics2D.OverlapCircleAll(transform.position, 2f, m_LayerMask);
 
@@ -39,11 +60,11 @@ public class Mine : MonoBehaviour
             // 몬스터에게 데미지 부여
             Monster monster = cols[i].gameObject.GetComponent<Monster>();
             monster.MonsterOnDamage(m_Damage);
-
-            // 변수 초기화
-            m_IsBoom = false;
-            gameObject.SetActive(false);
         }
+        // 변수 초기화
+        m_IsBoom = false;
+        ObjectPoolingManager.Instance.InsertQueue(gameObject, ObjectPoolingManager.m_PlayerSkill2Key);
+
         // 폭발 이펙트
         ExplosionEffect();
     }

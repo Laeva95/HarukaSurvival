@@ -22,7 +22,7 @@ public class LevelUpSlot : MonoBehaviour
     public void ConfirmSelect()
     {
         string str = "";
-        if (m_SkillIndex == 6 || m_SkillIndex == 7 || m_SkillIndex == 11 || m_SkillIndex == 3)
+        if (m_SkillIndex == 6 || m_SkillIndex == 7 || m_SkillIndex == 11 || m_SkillIndex == 3 || m_SkillIndex == 13)
         {
             str = "∏¶";
         }
@@ -98,6 +98,10 @@ public class LevelUpSlot : MonoBehaviour
             case 12:
                 // Skill03 ∑π∫ß +1
                 m_SkillManager.Skill03.SkillLevelUp();
+                break;
+            case 13:
+                // æ∆¿Ã≈€ »πµÊ π¸¿ß 20%
+                m_Player.SetItemCheck(1.2f);
                 break;
             default:
                 break;

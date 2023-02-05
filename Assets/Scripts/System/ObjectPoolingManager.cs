@@ -17,13 +17,16 @@ public class ObjectPoolingManager : MonoBehaviour
     private GameObject m_MonsterBullet2Prefab;
 
     [SerializeField]
-    private GameObject m_ExpItem0;
+    private GameObject m_PlayerSkill2Prefab;
+
     [SerializeField]
-    private GameObject m_ExpItem1;
+    private GameObject m_ExpItem0Prefab;
     [SerializeField]
-    private GameObject m_ExpItem2;
+    private GameObject m_ExpItem1Prefab;
     [SerializeField]
-    private GameObject m_ExpItem3;
+    private GameObject m_ExpItem2Prefab;
+    [SerializeField]
+    private GameObject m_ExpItem3Prefab;
 
     [SerializeField]
     private GameObject m_Monster00Prefab;
@@ -76,6 +79,8 @@ public class ObjectPoolingManager : MonoBehaviour
     private Queue<GameObject> m_MonsterBulletQueue = new Queue<GameObject>();
     private Queue<GameObject> m_MonsterBullet2Queue = new Queue<GameObject>();
 
+    private Queue<GameObject> m_PlayerSkill2Queue = new Queue<GameObject>();
+
     private Queue<GameObject> m_ExpItem0Queue = new Queue<GameObject>();
     private Queue<GameObject> m_ExpItem1Queue = new Queue<GameObject>();
     private Queue<GameObject> m_ExpItem2Queue = new Queue<GameObject>();
@@ -111,6 +116,8 @@ public class ObjectPoolingManager : MonoBehaviour
     public const int m_PlayerBullet3Key = 102;
     public const int m_MonsterBulletKey = 110;
     public const int m_MonsterBullet2Key = 111;
+
+    public const int m_PlayerSkill2Key = 200;
 
     public const int m_ExpItem0Key = 500;
     public const int m_ExpItem1Key = 501;
@@ -180,6 +187,8 @@ public class ObjectPoolingManager : MonoBehaviour
         m_queueDic.Add(m_PlayerBullet3Key, m_PlayerBullet3Queue);
         m_queueDic.Add(m_MonsterBulletKey, m_MonsterBulletQueue);
         m_queueDic.Add(m_MonsterBullet2Key, m_MonsterBullet2Queue);
+        
+        m_queueDic.Add(m_PlayerSkill2Key, m_PlayerSkill2Queue);
 
         m_queueDic.Add(m_ExpItem0Key, m_ExpItem0Queue);
         m_queueDic.Add(m_ExpItem1Key, m_ExpItem1Queue);
@@ -216,10 +225,12 @@ public class ObjectPoolingManager : MonoBehaviour
         InitQueue(m_MonsterBulletPrefab, m_MonsterBulletQueue, 150);
         InitQueue(m_MonsterBullet2Prefab, m_MonsterBullet2Queue, 10);
 
-        InitQueue(m_ExpItem0, m_ExpItem0Queue, 50);
-        InitQueue(m_ExpItem1, m_ExpItem1Queue, 50);
-        InitQueue(m_ExpItem2, m_ExpItem2Queue, 50);
-        InitQueue(m_ExpItem3, m_ExpItem3Queue, 50);
+        InitQueue(m_PlayerSkill2Prefab, m_PlayerSkill2Queue, 10);
+
+        InitQueue(m_ExpItem0Prefab, m_ExpItem0Queue, 50);
+        InitQueue(m_ExpItem1Prefab, m_ExpItem1Queue, 50);
+        InitQueue(m_ExpItem2Prefab, m_ExpItem2Queue, 50);
+        InitQueue(m_ExpItem3Prefab, m_ExpItem3Queue, 50);
 
         InitQueue(m_Monster00Prefab, m_Monster00Queue, 30);
         InitQueue(m_Monster01Prefab, m_Monster01Queue, 30);

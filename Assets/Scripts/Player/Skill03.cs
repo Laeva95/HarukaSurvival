@@ -46,7 +46,7 @@ public class Skill03 : Skill
                     yield return new WaitForSeconds(0.05f);
                 }
             }
-            yield return new WaitForSeconds(17f - (m_Level * 1f));
+            yield return new WaitForSeconds(14f - (m_Level * 1f));
         }
     }
 }

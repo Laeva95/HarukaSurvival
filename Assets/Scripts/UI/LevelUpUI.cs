@@ -26,7 +26,7 @@ public class LevelUpUI : MonoBehaviour
     private List<int> m_SkillList;
 
     // 현재 스킬 총 개수
-    private int m_SkillCount = 13;
+    private int m_SkillCount = 14;
 
 
     private void Awake()
@@ -116,6 +116,12 @@ public class LevelUpUI : MonoBehaviour
                     break;
                 case 12:
                     if (m_SkillManager.Skill03.Level >= 10)
+                    {
+                        m_SkillList.Remove(m_SkillList[i]);
+                    }
+                    break;
+                case 13:
+                    if (m_Player.ItemCheck.localScale.x > 5)
                     {
                         m_SkillList.Remove(m_SkillList[i]);
                     }

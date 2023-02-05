@@ -223,7 +223,7 @@ public abstract class Monster : MonoBehaviour
 
         exp.transform.position = gameObject.transform.position;
 
-        Item item = exp.GetComponent<Item>();
+        ExpItem item = exp.GetComponent<ExpItem>();
         item.SetExp(m_MonsterExp);
     }
 }

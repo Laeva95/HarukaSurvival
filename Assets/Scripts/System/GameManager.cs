@@ -228,7 +228,7 @@ public class GameManager : MonoBehaviour
         // 게임이 더 진행되지 않도록 IsPlay = false
         m_IsPlay = false;
     }
-    void OnCancel()
+    void OnCancel(InputValue _value)
     {
         OnPause();
     }
