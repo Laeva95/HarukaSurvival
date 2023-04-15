@@ -57,7 +57,7 @@ TextureImporter:
       213: 5171138061980260786
     second: haruka2_17
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -78,6 +78,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -116,6 +117,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -155,6 +157,30 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: 4
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: 4
@@ -556,6 +582,25 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      haruka2_11: 7890441215576588931
+      haruka2_9: 8998249160221551432
+      haruka2_14: 6487454897755268780
+      haruka2_8: -317044200409338080
+      haruka2_4: -5068860021162688307
+      haruka2_3: -5229893101758602698
+      haruka2_15: 7347164834130529234
+      haruka2_5: -8410019727837894312
+      haruka2_1: -1019084466549326808
+      haruka2_12: -8787821797999944431
+      haruka2_16: -737730445899050151
+      haruka2_10: -2034705086121929110
+      haruka2_13: -5054097180359427155
+      haruka2_7: -7783321802281032661
+      haruka2_2: -3344416257222955822
+      haruka2_0: 950686065561282096
+      haruka2_17: 5171138061980260786
+      haruka2_6: 7317669485997858264
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
